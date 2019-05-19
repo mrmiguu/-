@@ -60,10 +60,12 @@ function addNums(fst, snd) {
   return fst + snd;
 }
 
-let [fst, snd] = ['one', 'two']
-let counts = {one: 1, two: 2, three: 3, 'num four': 4}
+let [fst, snd] = [`one`, `two`];
+let counts = {one: 1, two: 2, three: 3, `num four`: 4};
 
-let {two, three} = counts
-let uno = counts[fst]
-let quad = counts['num four]
+let {two, three} = counts;
+let uno = counts[fst];
+let quad = counts[`num four`];
+
+addNums(uno, quad);
 ```

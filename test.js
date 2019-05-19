@@ -24,6 +24,10 @@ function compile(bang) {
       .replace('{', '){')
   })
 
+  bang = bang.replace(/\([A-Za-z\$]+?(\s[A-Za-z\$]+?)+\)/g, capture => {
+    return capture.replace(/\s/g, ',')
+  })
+
   // fixes all string template literals
   bang = bang.replace(/'.*?'|".*?"|`.*?`/g, capture => {
     // capture
@@ -32,18 +36,20 @@ function compile(bang) {
       .replace(/"/g, "`")
   })
 
-  // fixes imports (not the best, but does the job)
-  bang = bang.replace(/import(.+?)['"`](.*?)['"`]\n/g, `import {\$1} from '\$2'\n`)
-  bang = bang.replace(/import\s*{.*?}/g, capture => {
-    // capture
-    return capture.replace(/[A-Za-z\$]+( [A-Za-z\$]+)*\s*}/g, capture => {
-      return capture.replace(/ /g, ',').replace(/\s*,\s*}/g, '}')/*?*/
-    })
+  // fixes imports
+  bang = bang.replace(/(^|\n)\s*[A-Za-z\$]+?(\s[A-Za-z\$]+)*?\s+\(.+?\)\n/g, capture => {
+    capture = capture
+      .replace(/[A-Za-z\$]+?(\s[A-Za-z\$]+)*?\s+\(/g, capture => {
+        return capture.replace(/\s/g, ',')
+      })
+      .replace(/,\(/g, `} from '`)
+      .replace(/\)/g, `'`)
+    return `import {${capture}`
   })
 
   // fixes function signatures
   bang = bang.replace(/[A-Za-z\$]+\s?\([A-Za-z\$]+( [A-Za-z\$]+)*\)\s?{/g, capture => {
-    capture
+    // capture
     
     return `function ${capture.replace(/\([A-Za-z\$]+( [A-Za-z\$]+)*\)/g, capture => {
       return capture.replace(' ', ',')
@@ -66,7 +72,7 @@ const bangSource = `
 // Banglang!
 // A simple spin-off of JavaScript inspired by other languages (Go, Prolog).
 
-import Min Max Abs './Math'
+Min Max Abs (./Math)
 
 // Interprets all global assignments as 'let' under the hood.
 x = false
@@ -91,9 +97,18 @@ if x {
 }
 
 // A private function.
-add(a b) {
-  =a + b
+addNums(fst snd) {
+  =fst + snd
 }
+
+fst snd = ['one' 'two']
+counts = {one:1 two:2 three:3 'num four':4}
+
+two three = counts
+uno = counts[fst]
+quad = counts.'num four'
+
+addNums(uno quad)
 `
 
 compile(bangSource)

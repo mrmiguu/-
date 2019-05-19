@@ -1,0 +1,22 @@
+// Exports capitalized functions.
+Min(l r) {
+  if l < r {
+    =l
+  } else {
+    =r
+  }
+}
+
+// Adds 'function' to the front, separates args with commas,
+// and a '=' without a left side is replaced with 'return'.
+Max(l r) {
+  if l < r {=r}
+  else if l >= r {=l}
+}
+
+Abs(n) {
+  if n < -1 {
+    =n * -1
+  }
+  =n
+}

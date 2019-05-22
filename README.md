@@ -14,7 +14,7 @@ if x {
   if y = true {
     xStr := 'x {x}'
     yStr := "y {y}"
-    xAndY := \`x&y {x && y}\`
+    xAndY := `x&y {x && y}`
     
     log('Howdy!')
     warn('Partner.')

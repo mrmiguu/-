@@ -3,7 +3,7 @@
 *!* (or Bang) is a baby preprocessor for JavaScript. Bang makes writing JS less tiring
 
 `index.!`
-```JavaScript
+```Golang
 Min Max Abs (./Math)
 
 x := false

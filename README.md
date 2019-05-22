@@ -27,7 +27,7 @@ addNums(fst snd) {
 }
 
 dos := "two"
-[fst snd] := ['one' dos \`number three\`]
+[fst snd] := ['one' dos `number three`]
 counts := {one:1 two:2 three:3 'num four':4 "egg":x}
 {two three} := counts
 uno := counts[fst]

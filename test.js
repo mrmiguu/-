@@ -1,12 +1,12 @@
 // compile converts Bang code (e.g. main.!) into JavaScript.
 function compile(bang) {
-
-  let declared = {}
-
+  
   // removes comments
   bang = bang.replace(/\/\/.*?\n/g, '')
 
   // fixed undeclared variables to have local scope
+  let declared = {}
+  let scopeReg = /{([^{]|\n)*?}/g // TODO: use to flush 'declare' each passthrough; relative per scope.
   bang = bang.replace(/[^\s]+?\s=/g, capture => {
     if (declared[capture]) return capture
     declared[capture] = true

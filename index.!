@@ -1,32 +1,47 @@
-// Banglang!
+// Bang!
 // A simple spin-off of JavaScript inspired by other languages (Go, Prolog).
 
-// Wraps in '{..}' and appends 'from' before the string.
-import Min Max Abs './Math'
+Min Max Abs (./Math)
 
 // Interprets all global assignments as 'let' under the hood.
-x = false
-y = true
+x := false
+y := true
 x = true
 
 // Assumes anything between an 'if' and its nearest '{' should be (wrapped).
 if x {
-
   if y = true {
-
+    
     // All 3-types of string literals are string templates.
-    xStr = 'x {x}'
-    yStr = "y {y}"
-    xAndY = `x&y {x && y}`
+    xStr := 'x {x}'
+    yStr := "y {y}"
+    xAndY := `x&y {x && y}`
     
     // Injects our variables into the template.
-    console.log('{xStr}, {yStr}, {xAndY}')
-    
+    log('Howdy!')
+    warn('Partner.')
+    error('{xStr}, {yStr}, {xAndY}')
   }
-
 }
 
 // A private function.
-add(a b) {
-  =a + b
+addNums(fst snd) {
+  := fst + snd
 }
+
+dos := "two"
+
+[fst snd] := ['one' dos `number three`]
+
+counts := {
+  one:1 two:2 three:3
+  'num four':4
+  "egg":x
+}
+
+{two three} := counts
+
+uno := counts[fst]
+quad := counts['num four']
+
+addNums(uno quad)
